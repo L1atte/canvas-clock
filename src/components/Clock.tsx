@@ -1,4 +1,4 @@
-import { ElementRef, useEffect, useRef } from 'react';
+import { ElementRef, useEffect, useLayoutEffect, useRef } from 'react';
 
 type LineOption = {
   x: number;
@@ -9,8 +9,12 @@ type LineOption = {
   color: string;
 };
 
+// 获取设备的像素比
+const devicePixelRatio = window.devicePixelRatio || 1;
 const width = 400;
 const height = 400;
+const scaleWidth = width * devicePixelRatio;
+const scaleHeight = height * devicePixelRatio;
 const radius = 180;
 const dot = {
   x: 190,
@@ -35,8 +39,8 @@ function ClockBg() {
     const bgCtx = bgElement?.getContext('2d');
 
     if (bgElement) {
-      bgElement.width = width;
-      bgElement.height = height;
+      bgElement.width = scaleWidth;
+      bgElement.height = scaleHeight;
     }
 
     if (bgCtx) {
@@ -71,8 +75,9 @@ function ClockBg() {
 
   return (
     <canvas
-      width={width}
-      height={height}
+      style={{ width, height }}
+      width={scaleWidth}
+      height={scaleHeight}
       ref={canvasRef}
     />
   );
@@ -82,7 +87,7 @@ function ClockHands() {
   const canvasRef = useRef<ElementRef<'canvas'>>(null);
   const timer = useRef<ReturnType<typeof setInterval>>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handsElement = canvasRef.current;
     const handsCtx = handsElement?.getContext('2d');
 
@@ -105,15 +110,17 @@ function ClockHands() {
         position: 'absolute',
         left: 0,
         top: 0,
+        width,
+        height,
       }}
-      width={width}
-      height={height}
+      width={scaleWidth}
+      height={scaleHeight}
       ref={canvasRef}
     />
   );
 }
 function updatePointers(ctx: CanvasRenderingContext2D) {
-  ctx.clearRect(0, 0, width, height); // 清掉原来的指针
+  ctx.clearRect(0, 0, scaleWidth, scaleHeight); // 清掉原来的指针
   // 获取当前时间
   const now = new Date();
   let h = now.getHours();
