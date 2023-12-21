@@ -40,6 +40,8 @@ function ClockBg() {
     }
 
     if (bgCtx) {
+      bgCtx.imageSmoothingEnabled = true;
+
       bgCtx.beginPath();
       bgCtx.strokeStyle = '#fff';
       bgCtx.arc(dot.x, dot.y, radius, 0, 2 * Math.PI);
@@ -85,6 +87,8 @@ function ClockHands() {
     const handsCtx = handsElement?.getContext('2d');
 
     if (handsCtx) {
+      handsCtx.imageSmoothingEnabled = true;
+
       timer.current = setInterval(() => {
         updatePointers(handsCtx);
       }, 1000);
