@@ -9,7 +9,7 @@ function App() {
       <br />
       <br />
       <KonvaClock />
-      <CanvasClock />
+      {/* <CanvasClock /> */}
       <br />
       <br />
       <City />
