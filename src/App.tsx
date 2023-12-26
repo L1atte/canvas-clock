@@ -6,15 +6,13 @@ import './App.css';
 
 function App() {
   return (
-    <>
-      <br />
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <KonvaClock />
-      {/* <CanvasClock /> */}
-      <br />
-      <br />
-      <City />
-      {/* <ClockComponent /> */}
-    </>
+      <KonvaClock />
+      <KonvaClock />
+      <KonvaClock />
+      <KonvaClock />
+    </div>
   );
 }
 

@@ -2,11 +2,11 @@ import { ElementRef, useEffect, useRef } from 'react';
 import { Stage, Layer, Circle, Text } from 'react-konva';
 
 // 获取设备的像素比
-const devicePixelRatio = window.devicePixelRatio || 1;
+// const devicePixelRatio = window.devicePixelRatio || 1;
 const width = 400;
 const height = 400;
-const scaleWidth = width * devicePixelRatio;
-const scaleHeight = height * devicePixelRatio;
+// const scaleWidth = width * devicePixelRatio;
+// const scaleHeight = height * devicePixelRatio;
 const radius = 180;
 const dot = {
   x: 190,
@@ -18,19 +18,11 @@ const dot = {
 // mode
 // zone
 function KonvaClock() {
-  return (
-    <>
-      <BgClock />
-    </>
-  );
+  return <ClockDial />;
 }
 
-function BgClock() {
+function ClockDial() {
   const stageRef = useRef<ElementRef<typeof Stage>>(null);
-
-  useEffect(() => {
-    console.log(stageRef.current?.getClientRect());
-  }, []);
 
   return (
     <Stage
@@ -38,10 +30,7 @@ function BgClock() {
       width={width}
       height={height}
     >
-      <Layer
-        width={scaleWidth}
-        height={scaleHeight}
-      >
+      <Layer>
         <Circle
           x={dot.x}
           y={dot.y}
@@ -50,11 +39,12 @@ function BgClock() {
         />
         {Array.from({ length: 12 }, (_, index) => index + 1).map(i => {
           const angle = (i * Math.PI) / 6; // 每个数字刻度所对应的角度
-          const x = dot.x + Math.sin(angle) * (radius - 30);
-          const y = dot.y - Math.cos(angle) * (radius - 30);
+          const x = dot.x + Math.sin(angle) * (radius - 20);
+          const y = dot.y - Math.cos(angle) * (radius - 20);
 
           return (
             <Text
+              key={i}
               x={x}
               y={y}
               text={i.toString()}
