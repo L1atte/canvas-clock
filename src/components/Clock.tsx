@@ -119,6 +119,7 @@ function ClockHands() {
     />
   );
 }
+
 function updatePointers(ctx: CanvasRenderingContext2D) {
   ctx.clearRect(0, 0, scaleWidth, scaleHeight); // 清掉原来的指针
   // 获取当前时间
