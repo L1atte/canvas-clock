@@ -1,3 +1,4 @@
+import { ElementRef, useEffect, useRef } from 'react';
 import { Stage, Layer, Circle, Text } from 'react-konva';
 
 // 获取设备的像素比
@@ -25,12 +26,22 @@ function KonvaClock() {
 }
 
 function BgClock() {
+  const stageRef = useRef<ElementRef<typeof Stage>>(null);
+
+  useEffect(() => {
+    console.log(stageRef.current?.getClientRect());
+  }, []);
+
   return (
     <Stage
+      ref={stageRef}
       width={width}
       height={height}
     >
-      <Layer>
+      <Layer
+        width={scaleWidth}
+        height={scaleHeight}
+      >
         <Circle
           x={dot.x}
           y={dot.y}
@@ -49,7 +60,7 @@ function BgClock() {
               text={i.toString()}
               align={'center'}
               verticalAlign={'center'}
-              fill='white'
+              fill="white"
             ></Text>
           );
         })}
