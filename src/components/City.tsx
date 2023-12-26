@@ -1,4 +1,4 @@
-import { cityMapping, lookupViaCity } from 'city-timezones';
+import { cityMapping } from 'city-timezones';
 import Fuse from 'fuse.js';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
