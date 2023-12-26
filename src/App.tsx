@@ -1,4 +1,5 @@
 import { ClockComponent } from './components/CanvasClock';
+import { City } from './components/City';
 import { CanvasClock } from './components/Clock';
 
 function App() {
@@ -7,6 +8,9 @@ function App() {
       <br />
       <br />
       <CanvasClock />
+      <br />
+      <br />
+      <City />
       <br />
       <br />
       <ClockComponent />
