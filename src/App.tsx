@@ -8,6 +8,7 @@ function App() {
     <>
       <br />
       <br />
+      <KonvaClock />
       <CanvasClock />
       <br />
       <br />
@@ -17,7 +18,6 @@ function App() {
       <ClockComponent />
       <br />
       <br />
-      <KonvaClock />
     </>
   );
 }
