@@ -34,6 +34,15 @@ function City() {
         onChange={e => setInputValue(e.target.value)}
       />
       <button onClick={handleClick}>search</button>
+
+
+      <div>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </div>
     </div>
   );
 }

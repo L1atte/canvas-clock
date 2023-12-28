@@ -1,5 +1,13 @@
-import { ElementRef, useEffect, useRef } from 'react';
-import { Stage, Layer, Circle, Text } from 'react-konva';
+import { useEffect, useRef } from 'react';
+import { Circle, Layer, Line, Stage, Text } from 'react-konva';
+
+type HandOption = {
+  x: number;
+  y: number;
+  width: number;
+  length: number;
+  color: string;
+};
 
 // 获取设备的像素比
 // const devicePixelRatio = window.devicePixelRatio || 1;
@@ -14,19 +22,45 @@ const dot = {
   radius: 14,
 };
 
+const hourHand: HandOption = {
+  width: 11.25,
+  length: 90,
+  color: '#fff',
+  x: dot.x,
+  y: dot.y,
+};
+
+const minuteHand: HandOption = {
+  width: 11.25,
+  length: 130,
+  color: '#fff',
+  x: dot.x,
+  y: dot.y,
+};
+
+const secondHand: HandOption = {
+  width: 2.813,
+  length: 140,
+  color: '#405EFF',
+  x: dot.x,
+  y: dot.y,
+};
+
 // 两个参数
 // mode
 // zone
 function KonvaClock() {
-  return <ClockDial />;
+  return (
+    <div style={{ position: 'relative' }}>
+      <ClockDial />
+      <ClockHands />
+    </div>
+  );
 }
 
 function ClockDial() {
-  const stageRef = useRef<ElementRef<typeof Stage>>(null);
-
   return (
     <Stage
-      ref={stageRef}
       width={width}
       height={height}
     >
@@ -48,12 +82,57 @@ function ClockDial() {
               x={x}
               y={y}
               text={i.toString()}
-              align={'center'}
+              align={}
               verticalAlign={'center'}
               fill="white"
             ></Text>
           );
         })}
+      </Layer>
+    </Stage>
+  );
+}
+
+function ClockHands() {
+  const timer = useRef<ReturnType<typeof setInterval>>();
+
+  useEffect(() => {
+    timer.current = setInterval(() => {}, 1000);
+
+    return () => {
+      timer.current && clearInterval(timer.current);
+    };
+  }, []);
+
+  return (
+    <Stage
+      style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+      }}
+      width={width}
+      height={height}
+    >
+      <Layer>
+        <Line
+          points={[hourHand.x, hourHand.y, hourHand.x, hourHand.y - hourHand.length]}
+          strokeWidth={hourHand.width}
+          stroke={hourHand.color}
+          lineCap="round"
+        />
+        <Line
+          points={[minuteHand.x, minuteHand.y, minuteHand.x, minuteHand.y - minuteHand.length]}
+          strokeWidth={minuteHand.width}
+          stroke={minuteHand.color}
+          lineCap="round"
+        />
+        <Line
+          points={[secondHand.x, secondHand.y, secondHand.x, secondHand.y - secondHand.length]}
+          strokeWidth={secondHand.width}
+          stroke={secondHand.color}
+          lineCap="round"
+        />
       </Layer>
     </Stage>
   );
